@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Brands</title>
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+</head>
+
+<body>
+
+    <aside class="admin-sidebar">
+
+        <div class="admin-logo">
+            Admin Panel
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="categories.html">
+                Categories
+            </a>
+
+            <a
+                href="brands.html"
+                class="active"
+            >
+                Brands
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="inventory.html">
+                Inventory
+            </a>
+
+            <a href="orders.html">
+                Orders
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <div class="admin-main">
+
+        <header class="admin-header">
+
+            <h1>Brands</h1>
+
+            <button id="logout-button">
+                Logout
+            </button>
+
+        </header>
+
+
+        <main class="admin-content">
+
+            <section class="admin-form-card">
+
+                <h2 id="form-title">
+                    Add Brand
+                </h2>
+
+
+                <form id="brand-form">
+
+                    <div>
+
+                        <label for="name">
+                            Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="slug">
+                            Slug
+                        </label>
+
+                        <input
+                            type="text"
+                            id="slug"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            id="save-button"
+                        >
+                            Create Brand
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancel-edit"
+                            class="secondary-admin-button"
+                        >
+                            Cancel Edit
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <p
+                    id="form-message"
+                    class="admin-message"
+                ></p>
+
+            </section>
+
+
+            <section class="admin-table-card">
+
+                <h2>All Brands</h2>
+
+                <p id="loading">
+                    Loading brands...
+                </p>
+
+                <p
+                    id="page-error"
+                    class="admin-error"
+                ></p>
+
+
+                <div class="table-wrapper">
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Slug</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody
+                            id="brands-table"
+                        >
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="../js/api.js"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/brands.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Orders</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/commerce-flow.css"
+    >
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>My Orders</h1>
+
+            <a
+                href="index.html"
+                class="header-link"
+            >
+                Continue Shopping
+            </a>
+        </div>
+    </header>
+
+
+    <main class="container">
+
+        <p id="orders-loading">
+            Loading orders...
+        </p>
+
+
+        <p
+            id="orders-error"
+            class="error-message"
+        ></p>
+
+
+        <section
+            id="orders-container"
+            class="orders-container"
+        >
+        </section>
+
+
+        <div class="pagination">
+
+            <button
+                id="previous-orders"
+            >
+                Previous
+            </button>
+
+            <span
+                id="orders-page-info"
+            >
+            </span>
+
+            <button
+                id="next-orders"
+            >
+                Next
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <script src="js/api.js"></script>
+    <script src="js/orders.js"></script>
+
+</body>
+
+</html>

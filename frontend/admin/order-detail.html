@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Order Detail</title>
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+</head>
+
+<body>
+
+    <aside class="admin-sidebar">
+
+        <div class="admin-logo">
+            Admin Panel
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="categories.html">
+                Categories
+            </a>
+
+            <a href="brands.html">
+                Brands
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="inventory.html">
+                Inventory
+            </a>
+
+            <a
+                href="orders.html"
+                class="active"
+            >
+                Orders
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <div class="admin-main">
+
+        <header class="admin-header">
+
+            <h1>Order Detail</h1>
+
+            <button id="logout-button">
+                Logout
+            </button>
+
+        </header>
+
+
+        <main class="admin-content">
+
+            <a
+                href="orders.html"
+                class="admin-back-link"
+            >
+                ← Back to Orders
+            </a>
+
+
+            <p id="order-loading">
+                Loading order...
+            </p>
+
+
+            <p
+                id="order-error"
+                class="admin-error"
+            ></p>
+
+
+            <div
+                id="order-container"
+            >
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="../js/api.js?v=5"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/order-detail.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Shopping Cart</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>Shopping Cart</h1>
+
+            <a
+                href="index.html"
+                class="header-link"
+            >
+                Continue Shopping
+            </a>
+        </div>
+    </header>
+
+
+    <main class="container">
+
+        <p
+            id="cart-error"
+            class="error-message"
+        ></p>
+
+
+        <p id="cart-loading">
+            Loading cart...
+        </p>
+
+
+        <section
+            id="cart-items"
+            class="cart-items"
+        >
+        </section>
+
+
+        <section
+            id="cart-summary"
+            class="cart-summary"
+        >
+        </section>
+
+    </main>
+
+
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+
+</body>
+
+</html>

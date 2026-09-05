@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Admin Dashboard
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+
+</head>
+
+
+<body>
+
+    <aside class="admin-sidebar">
+
+        <div class="admin-logo">
+            Admin Panel
+        </div>
+
+
+        <nav>
+
+            <a
+                href="dashboard.html"
+                class="active"
+            >
+                Dashboard
+            </a>
+
+            <a href="categories.html">
+                Categories
+            </a>
+
+            <a href="brands.html">
+                Brands
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="inventory.html">
+                Inventory
+            </a>
+
+            <a href="orders.html">
+                Orders
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <div class="admin-main">
+
+        <header class="admin-header">
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <button id="logout-button">
+                Logout
+            </button>
+
+        </header>
+
+
+        <main class="admin-content">
+
+            <p id="dashboard-loading">
+                Loading dashboard...
+            </p>
+
+
+            <p
+                id="dashboard-error"
+                class="admin-error"
+            ></p>
+
+
+            <section
+                id="dashboard-metrics"
+                class="dashboard-metrics"
+            >
+
+                <div class="metric-card">
+
+                    <span>
+                        Customers
+                    </span>
+
+                    <strong id="customers-count">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>
+                        Products
+                    </span>
+
+                    <strong id="products-count">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>
+                        Total Orders
+                    </span>
+
+                    <strong id="orders-count">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>
+                        Pending Orders
+                    </span>
+
+                    <strong id="pending-count">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>
+                        Low Stock
+                    </span>
+
+                    <strong id="low-stock-count">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>
+                        Today's Orders
+                    </span>
+
+                    <strong id="today-count">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="metric-card sales-card">
+
+                    <span>
+                        Delivered Sales
+                    </span>
+
+                    <strong id="sales-total">
+                        PKR 0
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+            <section class="admin-table-card">
+
+                <div class="dashboard-section-header">
+
+                    <h2>
+                        Recent Orders
+                    </h2>
+
+                    <a
+                        href="orders.html"
+                        class="table-link-button"
+                    >
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Order</th>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            id="recent-orders-table"
+                        >
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="../js/api.js?v=6"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

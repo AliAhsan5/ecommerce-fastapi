@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Categories</title>
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+</head>
+
+<body>
+
+    <aside class="admin-sidebar">
+
+        <div class="admin-logo">
+            Admin Panel
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a
+                href="categories.html"
+                class="active"
+            >
+                Categories
+            </a>
+
+            <a href="brands.html">
+                Brands
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="inventory.html">
+                Inventory
+            </a>
+
+            <a href="orders.html">
+                Orders
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <div class="admin-main">
+
+        <header class="admin-header">
+
+            <h1>Categories</h1>
+
+            <button id="logout-button">
+                Logout
+            </button>
+
+        </header>
+
+
+        <main class="admin-content">
+
+            <section class="admin-form-card">
+
+                <h2 id="form-title">
+                    Add Category
+                </h2>
+
+                <form id="category-form">
+
+                    <div>
+                        <label for="name">
+                            Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            required
+                        >
+                    </div>
+
+
+                    <div>
+                        <label for="slug">
+                            Slug
+                        </label>
+
+                        <input
+                            type="text"
+                            id="slug"
+                            placeholder="men-perfumes"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            id="save-button"
+                        >
+                            Create Category
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancel-edit"
+                            class="secondary-admin-button"
+                        >
+                            Cancel Edit
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <p
+                    id="form-message"
+                    class="admin-message"
+                ></p>
+
+            </section>
+
+
+            <section class="admin-table-card">
+
+                <h2>All Categories</h2>
+
+                <p id="loading">
+                    Loading categories...
+                </p>
+
+                <p
+                    id="page-error"
+                    class="admin-error"
+                ></p>
+
+
+                <div class="table-wrapper">
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Slug</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody
+                            id="categories-table"
+                        >
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="../js/api.js?v=2"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/categories.js"></script>
+
+</body>
+
+</html>

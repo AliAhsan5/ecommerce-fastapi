@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Inventory</title>
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+</head>
+
+<body>
+
+    <aside class="admin-sidebar">
+
+        <div class="admin-logo">
+            Admin Panel
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="categories.html">
+                Categories
+            </a>
+
+            <a href="brands.html">
+                Brands
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a
+                href="inventory.html"
+                class="active"
+            >
+                Inventory
+            </a>
+
+            <a href="orders.html">
+                Orders
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <div class="admin-main">
+
+        <header class="admin-header">
+
+            <h1>Inventory</h1>
+
+            <button id="logout-button">
+                Logout
+            </button>
+
+        </header>
+
+
+        <main class="admin-content">
+
+            <section class="admin-form-card">
+
+                <h2 id="variant-form-title">
+                    Add Product Variant
+                </h2>
+
+
+                <form
+                    id="variant-form"
+                    class="inventory-variant-form"
+                >
+
+                    <div>
+                        <label for="product-id">
+                            Product
+                        </label>
+
+                        <select
+                            id="product-id"
+                            required
+                        >
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label for="variant-name">
+                            Variant Name
+                        </label>
+
+                        <input
+                            id="variant-name"
+                            type="text"
+                            placeholder="100ml"
+                            required
+                        >
+                    </div>
+
+
+                    <div>
+                        <label for="variant-sku">
+                            Variant SKU
+                        </label>
+
+                        <input
+                            id="variant-sku"
+                            type="text"
+                            required
+                        >
+                    </div>
+
+
+                    <div>
+                        <label for="price-override">
+                            Price Override
+                        </label>
+
+                        <input
+                            id="price-override"
+                            type="number"
+                            min="0.01"
+                            step="0.01"
+                        >
+                    </div>
+
+
+                    <div id="threshold-create-field">
+
+                        <label for="initial-threshold">
+                            Low Stock Threshold
+                        </label>
+
+                        <input
+                            id="initial-threshold"
+                            type="number"
+                            min="0"
+                            value="5"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            id="variant-save-button"
+                        >
+                            Create Variant
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancel-edit"
+                            class="secondary-admin-button"
+                        >
+                            Cancel Edit
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <p
+                    id="form-message"
+                    class="admin-message"
+                ></p>
+
+            </section>
+
+
+            <section class="admin-table-card">
+
+                <h2>
+                    Stock & Variants
+                </h2>
+
+
+                <div class="admin-product-filters">
+
+                    <input
+                        id="inventory-search"
+                        type="text"
+                        placeholder="Search product, variant or SKU"
+                    >
+
+
+                    <select id="product-filter">
+
+                        <option value="">
+                            All Products
+                        </option>
+
+                    </select>
+
+
+                    <select id="variant-status-filter">
+
+                        <option value="">
+                            All Status
+                        </option>
+
+                        <option value="true">
+                            Active
+                        </option>
+
+                        <option value="false">
+                            Inactive
+                        </option>
+
+                    </select>
+
+
+                    <select id="stock-filter">
+
+                        <option value="">
+                            All Stock
+                        </option>
+
+                        <option value="true">
+                            Low Stock
+                        </option>
+
+                        <option value="false">
+                            Healthy Stock
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        id="apply-inventory-filter"
+                        type="button"
+                    >
+                        Apply
+                    </button>
+
+                </div>
+
+
+                <p id="inventory-loading">
+                    Loading inventory...
+                </p>
+
+
+                <p
+                    id="inventory-error"
+                    class="admin-error"
+                ></p>
+
+
+                <div class="table-wrapper">
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Product</th>
+                                <th>Variant</th>
+                                <th>SKU</th>
+                                <th>Price Override</th>
+                                <th>Stock</th>
+                                <th>Threshold</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            id="inventory-table"
+                        >
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <section
+                id="movement-section"
+                class="admin-table-card"
+                style="display: none;"
+            >
+
+                <div class="movement-header">
+
+                    <h2 id="movement-title">
+                        Inventory Movements
+                    </h2>
+
+                    <button
+                        id="close-movements"
+                        class="secondary-admin-button movement-close-button"
+                    >
+                        Close
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="movement-loading"
+                    style="display: none;"
+                >
+                    Loading movements...
+                </p>
+
+
+                <div class="table-wrapper">
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Change</th>
+                                <th>Balance</th>
+                                <th>Reason</th>
+                                <th>User ID</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            id="movement-table"
+                        >
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="../js/api.js?v=4"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/inventory.js"></script>
+
+</body>
+
+</html>

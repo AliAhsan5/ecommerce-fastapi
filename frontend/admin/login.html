@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Login</title>
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+</head>
+
+<body class="admin-login-body">
+
+    <main class="admin-login-card">
+
+        <h1>Admin Panel</h1>
+
+        <p>
+            Sign in with an administrator account.
+        </p>
+
+
+        <form id="admin-login-form">
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                id="email"
+                type="email"
+                required
+            >
+
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                required
+            >
+
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+
+        <p
+            id="login-error"
+            class="admin-error"
+        ></p>
+
+    </main>
+
+
+    <script src="../js/api.js"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>

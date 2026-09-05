@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Checkout</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/commerce-flow.css"
+    >
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>Checkout</h1>
+
+            <a
+                href="cart.html"
+                class="header-link"
+            >
+                ← Back to Cart
+            </a>
+        </div>
+    </header>
+
+
+    <main class="container">
+
+        <p
+            id="checkout-loading"
+            class="status-message"
+        >
+            Loading checkout...
+        </p>
+
+
+        <p
+            id="checkout-error"
+            class="error-message"
+        ></p>
+
+
+        <section
+            id="checkout-content"
+            class="checkout-layout"
+        >
+
+            <div class="checkout-card">
+
+                <h2>
+                    Shipping Address
+                </h2>
+
+                <label for="address-select">
+                    Select Address
+                </label>
+
+                <select
+                    id="address-select"
+                >
+                </select>
+
+            </div>
+
+
+            <div class="checkout-card">
+
+                <h2>
+                    Order Summary
+                </h2>
+
+                <div
+                    id="checkout-items"
+                >
+                </div>
+
+                <div
+                    id="checkout-total"
+                    class="checkout-total"
+                >
+                </div>
+
+                <p>
+                    Payment:
+                    <strong>
+                        Cash on Delivery
+                    </strong>
+                </p>
+
+                <button
+                    id="place-order-button"
+                    type="button"
+                    class="place-order-button"
+                >
+                    Place Order
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/api.js"></script>
+    <script src="js/checkout.js"></script>
+
+</body>
+
+</html>

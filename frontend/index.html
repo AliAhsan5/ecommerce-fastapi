@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>E-Commerce Store</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>E-Commerce Store</h1>
+
+            <p>
+                Browse our latest products
+            </p>
+        </div>
+    </header>
+
+
+    <main class="container">
+
+        <section class="catalog-header">
+            <h2>Products</h2>
+        </section>
+
+
+        <section class="filters">
+
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Search products..."
+            >
+
+
+            <select id="category-filter">
+                <option value="">
+                    All Categories
+                </option>
+            </select>
+
+
+            <select id="brand-filter">
+                <option value="">
+                    All Brands
+                </option>
+            </select>
+
+
+            <input
+                type="number"
+                id="min-price"
+                placeholder="Min Price"
+                min="1"
+            >
+
+
+            <input
+                type="number"
+                id="max-price"
+                placeholder="Max Price"
+                min="1"
+            >
+
+
+            <select id="sort-filter">
+
+                <option value="newest">
+                    Newest
+                </option>
+
+                <option value="price_asc">
+                    Price: Low to High
+                </option>
+
+                <option value="price_desc">
+                    Price: High to Low
+                </option>
+
+                <option value="name_asc">
+                    Name: A-Z
+                </option>
+
+                <option value="name_desc">
+                    Name: Z-A
+                </option>
+
+            </select>
+
+
+            <button
+                id="apply-filters"
+                type="button"
+            >
+                Apply
+            </button>
+
+
+            <button
+                id="reset-filters"
+                type="button"
+                class="secondary-button"
+            >
+                Reset
+            </button>
+
+        </section>
+
+
+        <p
+            id="loading-message"
+            class="status-message"
+        >
+            Loading products...
+        </p>
+
+
+        <p
+            id="error-message"
+            class="error-message"
+        ></p>
+
+
+        <section
+            id="products-container"
+            class="products-grid"
+        >
+        </section>
+
+
+        <section
+            id="pagination"
+            class="pagination"
+        >
+
+            <button
+                id="previous-page"
+                type="button"
+            >
+                Previous
+            </button>
+
+            <span id="page-info">
+                Page 1
+            </span>
+
+            <button
+                id="next-page"
+                type="button"
+            >
+                Next
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <script src="js/api.js"></script>
+    <script src="js/products.js"></script>
+
+</body>
+
+</html>

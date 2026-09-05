@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Orders</title>
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+</head>
+
+<body>
+
+    <aside class="admin-sidebar">
+
+        <div class="admin-logo">
+            Admin Panel
+        </div>
+
+        <nav>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="categories.html">
+                Categories
+            </a>
+
+            <a href="brands.html">
+                Brands
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="inventory.html">
+                Inventory
+            </a>
+
+            <a
+                href="orders.html"
+                class="active"
+            >
+                Orders
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <div class="admin-main">
+
+        <header class="admin-header">
+
+            <h1>Orders</h1>
+
+            <button id="logout-button">
+                Logout
+            </button>
+
+        </header>
+
+
+        <main class="admin-content">
+
+            <section class="admin-table-card">
+
+                <h2>
+                    Customer Orders
+                </h2>
+
+
+                <div class="admin-order-filters">
+
+                    <select id="status-filter">
+
+                        <option value="">
+                            All Status
+                        </option>
+
+                        <option value="pending">
+                            Pending
+                        </option>
+
+                        <option value="confirmed">
+                            Confirmed
+                        </option>
+
+                        <option value="processing">
+                            Processing
+                        </option>
+
+                        <option value="shipped">
+                            Shipped
+                        </option>
+
+                        <option value="delivered">
+                            Delivered
+                        </option>
+
+                        <option value="cancelled">
+                            Cancelled
+                        </option>
+
+                    </select>
+
+
+                    <input
+                        id="user-filter"
+                        type="number"
+                        min="1"
+                        placeholder="Customer User ID"
+                    >
+
+
+                    <input
+                        id="from-date"
+                        type="datetime-local"
+                    >
+
+
+                    <input
+                        id="to-date"
+                        type="datetime-local"
+                    >
+
+
+                    <button
+                        id="apply-filter"
+                        type="button"
+                    >
+                        Apply
+                    </button>
+
+
+                    <button
+                        id="reset-filter"
+                        type="button"
+                        class="secondary-admin-button"
+                    >
+                        Reset
+                    </button>
+
+                </div>
+
+
+                <p id="orders-loading">
+                    Loading orders...
+                </p>
+
+
+                <p
+                    id="orders-error"
+                    class="admin-error"
+                ></p>
+
+
+                <div class="table-wrapper">
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Order</th>
+                                <th>User ID</th>
+                                <th>Date</th>
+                                <th>Payment</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            id="orders-table"
+                        >
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div class="admin-pagination">
+
+                    <button
+                        id="previous-page"
+                        type="button"
+                    >
+                        Previous
+                    </button>
+
+                    <span id="page-info">
+                    </span>
+
+                    <button
+                        id="next-page"
+                        type="button"
+                    >
+                        Next
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="../js/api.js?v=5"></script>
+    <script src="js/admin-auth.js"></script>
+    <script src="js/orders.js"></script>
+
+</body>
+
+</html>
