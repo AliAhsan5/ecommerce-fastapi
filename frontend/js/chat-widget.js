@@ -263,6 +263,69 @@ function setSendingState(
 }
 
 
+function getChatErrorMessage(error) {
+
+    const message =
+        String(
+            error?.message || ""
+        ).toLowerCase();
+
+
+    if (
+        message.includes(
+            "too many chat requests"
+        )
+        ||
+        message.includes("429")
+    ) {
+        return (
+            "You're sending messages too quickly. " +
+            "Please wait a moment and try again."
+        );
+    }
+
+
+    if (
+        message.includes("503")
+        ||
+        message.includes(
+            "temporarily unavailable"
+        )
+        ||
+        message.includes(
+            "busy"
+        )
+    ) {
+        return (
+            "Our AI assistant is temporarily busy. " +
+            "Please try again in a moment."
+        );
+    }
+
+
+    if (
+        message.includes(
+            "failed to fetch"
+        )
+        ||
+        message.includes(
+            "network"
+        )
+    ) {
+        return (
+            "Unable to connect to the server. " +
+            "Please check your connection and try again."
+        );
+    }
+
+
+    return (
+        "Sorry, something went wrong. " +
+        "Please try again."
+    );
+}
+
+
 chatToggleButton.addEventListener(
     "click",
     () => {
@@ -412,16 +475,23 @@ chatForm.addEventListener(
             );
 
 
-        } catch (error) {
+            } catch (error) {
 
-            typingMessage.remove();
+        typingMessage.remove();
 
 
-            addMessage(
-                error.message ||
-                "Sorry, something went wrong.",
-                "assistant-message error-message"
-            );
+        console.error(
+            "Chat request failed:",
+            error
+        );
+
+
+        addMessage(
+            getChatErrorMessage(
+                error
+            ),
+            "assistant-message error-message"
+        );
 
 
         } finally {

@@ -4,6 +4,9 @@ from fastapi import (
 )
 from sqlalchemy.orm import Session
 
+from app.core.chat_rate_limit import (
+    enforce_chat_rate_limit,
+)
 from app.db.session import get_db
 from app.schemas.chat import (
     ChatRequest,
@@ -23,7 +26,14 @@ router = APIRouter()
 )
 def chat(
     request: ChatRequest,
-    db: Session = Depends(get_db),
+
+    db: Session = Depends(
+        get_db
+    ),
+
+    _: None = Depends(
+        enforce_chat_rate_limit
+    ),
 ):
     return process_chat_message(
         db=db,
