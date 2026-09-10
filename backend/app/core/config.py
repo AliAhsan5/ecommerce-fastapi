@@ -8,6 +8,13 @@ class Settings(BaseSettings):
     app_version: str = "0.1.0"
     app_env: str = "development"
 
+    gemini_api_key: str
+    gemini_model: str = "gemini-3.1-flash-lite"
+    gemini_fallback_model: str = "gemini-3.5-flash-lite"
+    
+
+
+   
     cors_origins: list[str] = [
         "http://127.0.0.1:5500",
         "http://localhost:5500",

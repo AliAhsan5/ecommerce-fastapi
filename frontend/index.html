@@ -17,23 +17,34 @@
     >
 </head>
 
+
 <body>
 
     <header class="site-header">
+
         <div class="container">
-            <h1>E-Commerce Store</h1>
+
+            <h1>
+                E-Commerce Store
+            </h1>
 
             <p>
                 Browse our latest products
             </p>
+
         </div>
+
     </header>
 
 
     <main class="container">
 
         <section class="catalog-header">
-            <h2>Products</h2>
+
+            <h2>
+                Products
+            </h2>
+
         </section>
 
 
@@ -47,16 +58,20 @@
 
 
             <select id="category-filter">
+
                 <option value="">
                     All Categories
                 </option>
+
             </select>
 
 
             <select id="brand-filter">
+
                 <option value="">
                     All Brands
                 </option>
+
             </select>
 
 
@@ -153,9 +168,11 @@
                 Previous
             </button>
 
+
             <span id="page-info">
                 Page 1
             </span>
+
 
             <button
                 id="next-page"
@@ -169,8 +186,101 @@
     </main>
 
 
-    <script src="js/api.js"></script>
-    <script src="js/products.js"></script>
+
+    <!-- AI CHAT WIDGET -->
+
+    <div class="ai-chat-widget">
+
+        <button
+            id="chat-toggle-button"
+            class="chat-toggle-button"
+            type="button"
+            aria-label="Open AI chat"
+        >
+            💬
+        </button>
+
+
+        <section
+            id="chat-window"
+            class="chat-window"
+        >
+
+            <header class="chat-header">
+
+                <div>
+
+                    <strong>
+                        AI Shopping Assistant
+                    </strong>
+
+                    <span>
+                        Ask about products, prices and stock
+                    </span>
+
+                </div>
+
+
+                <button
+                    id="chat-close-button"
+                    type="button"
+                    class="chat-close-button"
+                >
+                    ×
+                </button>
+
+            </header>
+
+
+            <div
+                id="chat-messages"
+                class="chat-messages"
+            >
+
+                <div
+                    class="chat-message assistant-message"
+                >
+                    Hi! How can I help you find a product today?
+                </div>
+
+            </div>
+
+
+            <form
+                id="chat-form"
+                class="chat-form"
+            >
+
+                <input
+                    id="chat-input"
+                    type="text"
+                    maxlength="1000"
+                    placeholder="Ask about products..."
+                    autocomplete="off"
+                    required
+                >
+
+
+                <button
+                    id="chat-send-button"
+                    type="submit"
+                >
+                    Send
+                </button>
+
+            </form>
+
+        </section>
+
+    </div>
+
+
+
+    <!-- JAVASCRIPT -->
+<script src="js/api.js?v=8"></script>
+<script src="js/products.js"></script>
+<script src="js/chat-widget.js?v=3"></script>
+
 
 </body>
 

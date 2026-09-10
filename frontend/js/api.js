@@ -767,3 +767,20 @@ async function getAdminDashboard() {
         true
     );
 }
+
+async function sendChatMessage(
+    message,
+    history = []
+) {
+    return apiRequest(
+        "/chat",
+        {
+            method: "POST",
+
+            body: JSON.stringify({
+                message: message,
+                history: history,
+            }),
+        }
+    );
+}
