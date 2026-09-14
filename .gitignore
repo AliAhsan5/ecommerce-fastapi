@@ -17,3 +17,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Database backups
+backups/
+*.backup
+*.dump
