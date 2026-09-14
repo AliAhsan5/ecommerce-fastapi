@@ -4,10 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.router import api_router
 from app.core.config import get_settings
 from app.core.exceptions import register_exception_handlers
-
-from app.core.hardening import (
-    SecurityHardeningMiddleware,
-)
+from app.core.hardening import SecurityHardeningMiddleware
 
 
 settings = get_settings()
@@ -27,10 +24,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 app.add_middleware(
     SecurityHardeningMiddleware,
     environment=settings.app_env,
 )
+
 
 register_exception_handlers(app)
 
