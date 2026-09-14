@@ -36,11 +36,24 @@ const chatSendButton =
         "chat-send-button"
     );
 
+function isOrderIntent(
+    message
+) {
+    const normalized =
+        message
+            .trim()
+            .toLowerCase();
+
+    return /\borders?\b/.test(
+        normalized
+    );
+}
 
 function addMessage(
     text,
     type
 ) {
+
     const message =
         document.createElement(
             "div"
@@ -65,14 +78,17 @@ function addToChatHistory(
     role,
     content
 ) {
+
     chatHistory.push({
         role: role,
         content: content,
     });
 
+
     if (
         chatHistory.length > 6
     ) {
+
         chatHistory =
             chatHistory.slice(-6);
     }
@@ -82,6 +98,7 @@ function addToChatHistory(
 function formatPrice(
     value
 ) {
+
     return Number(
         value
     ).toLocaleString(
@@ -95,9 +112,10 @@ function formatPrice(
 }
 
 
-function renderProducts(
+function renderChatProducts(
     products
 ) {
+
     if (
         !products ||
         products.length === 0
@@ -130,6 +148,7 @@ function renderProducts(
             if (
                 product.image_url
             ) {
+
                 const image =
                     document.createElement(
                         "img"
@@ -190,15 +209,13 @@ function renderProducts(
                     "span"
                 );
 
-            if (
+            stock.textContent =
                 product.stock_quantity > 0
-            ) {
-                stock.textContent =
-                    `In stock: ${product.stock_quantity}`;
-            } else {
-                stock.textContent =
-                    "Out of stock";
-            }
+                    ? (
+                        `In stock: ` +
+                        `${product.stock_quantity}`
+                    )
+                    : "Out of stock";
 
 
             const link =
@@ -229,7 +246,6 @@ function renderProducts(
                 content
             );
 
-
             container.appendChild(
                 card
             );
@@ -241,7 +257,6 @@ function renderProducts(
         container
     );
 
-
     chatMessages.scrollTop =
         chatMessages.scrollHeight;
 }
@@ -250,6 +265,7 @@ function renderProducts(
 function setSendingState(
     isSending
 ) {
+
     chatInput.disabled =
         isSending;
 
@@ -263,7 +279,9 @@ function setSendingState(
 }
 
 
-function getChatErrorMessage(error) {
+function getChatErrorMessage(
+    error
+) {
 
     const message =
         String(
@@ -272,12 +290,38 @@ function getChatErrorMessage(error) {
 
 
     if (
+        message.includes("401")
+        ||
+        message.includes(
+            "not authenticated"
+        )
+        ||
+        message.includes(
+            "authentication"
+        )
+        ||
+        message.includes(
+            "login required"
+        )
+        ||
+        message.includes("please login first")
+    ) {
+
+        return (
+            "Please log in first to access " +
+            "your private order information."
+        );
+    }
+
+
+    if (
+        message.includes("429")
+        ||
         message.includes(
             "too many chat requests"
         )
-        ||
-        message.includes("429")
     ) {
+
         return (
             "You're sending messages too quickly. " +
             "Please wait a moment and try again."
@@ -292,10 +336,9 @@ function getChatErrorMessage(error) {
             "temporarily unavailable"
         )
         ||
-        message.includes(
-            "busy"
-        )
+        message.includes("busy")
     ) {
+
         return (
             "Our AI assistant is temporarily busy. " +
             "Please try again in a moment."
@@ -312,6 +355,7 @@ function getChatErrorMessage(error) {
             "network"
         )
     ) {
+
         return (
             "Unable to connect to the server. " +
             "Please check your connection and try again."
@@ -334,11 +378,13 @@ chatToggleButton.addEventListener(
             "chat-open"
         );
 
+
         if (
             chatWindow.classList.contains(
                 "chat-open"
             )
         ) {
+
             chatInput.focus();
         }
     }
@@ -372,29 +418,17 @@ chatForm.addEventListener(
         }
 
 
-        /*
-        Display the current user
-        message immediately.
-        */
         addMessage(
             message,
             "user-message"
         );
 
 
-        /*
-        Copy OLD conversation history.
-
-        Current message is NOT added
-        yet because backend receives
-        it separately as "message".
-        */
         const requestHistory =
             [...chatHistory];
 
 
-        chatInput.value =
-            "";
+        chatInput.value = "";
 
 
         setSendingState(
@@ -425,35 +459,40 @@ chatForm.addEventListener(
 
         try {
 
-            /*
-            Send current message
-            + previous conversation
-            to FastAPI.
-            */
-            const response =
-                await sendChatMessage(
-                    message,
-                    requestHistory
-                );
+            let response;
+
+
+            if (
+                isOrderIntent(
+                    message
+                )
+            ) {
+
+                response =
+                    await sendOrderChatMessage(
+                        message,
+                        requestHistory
+                    );
+
+            } else {
+
+                response =
+                    await sendChatMessage(
+                        message,
+                        requestHistory
+                    );
+            }
 
 
             typingMessage.remove();
 
 
-            /*
-            Display AI response.
-            */
             addMessage(
                 response.reply,
                 "assistant-message"
             );
 
 
-            /*
-            Now save this successful
-            user + assistant exchange
-            into conversation history.
-            */
             addToChatHistory(
                 "user",
                 message
@@ -466,32 +505,28 @@ chatForm.addEventListener(
             );
 
 
-            /*
-            Render verified products
-            returned by backend.
-            */
-            renderProducts(
+            renderChatProducts(
                 response.products
             );
 
 
-            } catch (error) {
+        } catch (error) {
 
-        typingMessage.remove();
-
-
-        console.error(
-            "Chat request failed:",
-            error
-        );
+            typingMessage.remove();
 
 
-        addMessage(
-            getChatErrorMessage(
+            console.error(
+                "Chat request failed:",
                 error
-            ),
-            "assistant-message error-message"
-        );
+            );
+
+
+            addMessage(
+                getChatErrorMessage(
+                    error
+                ),
+                "assistant-message error-message"
+            );
 
 
         } finally {

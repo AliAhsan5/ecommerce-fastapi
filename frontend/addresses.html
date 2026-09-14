@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Addresses</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f8fa;
+            color: #111827;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .topbar a {
+            text-decoration: none;
+            color: #111827;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.07);
+        }
+
+        h1,
+        h2 {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-row input {
+            width: auto;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 7px;
+            padding: 11px 16px;
+        }
+
+        .primary-button {
+            background: #111827;
+            color: white;
+            width: 100%;
+            font-size: 15px;
+        }
+
+        .secondary-button {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .danger-button {
+            background: #dc2626;
+            color: white;
+        }
+
+        .address-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+
+        .address-card h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .address-card p {
+            margin: 5px 0;
+        }
+
+        .default-badge {
+            display: inline-block;
+            margin-left: 8px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 20px;
+            padding: 3px 8px;
+            font-size: 12px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        #message {
+            display: none;
+            margin-bottom: 20px;
+            padding: 12px;
+            border-radius: 7px;
+        }
+
+        .success {
+            display: block !important;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            display: block !important;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .empty {
+            color: #6b7280;
+        }
+
+        @media (
+            max-width: 800px
+        ) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page">
+
+        <div class="topbar">
+            <h1>My Addresses</h1>
+
+            <div>
+                <a href="index.html">
+                    Home
+                </a>
+
+                &nbsp; | &nbsp;
+
+                <a href="checkout.html">
+                    Checkout
+                </a>
+            </div>
+        </div>
+
+
+        <div id="message"></div>
+
+
+        <div class="layout">
+
+            <!-- ADDRESS FORM -->
+
+            <section class="card">
+
+                <h2 id="form-title">
+                    Add Shipping Address
+                </h2>
+
+
+                <form id="address-form">
+
+                    <input
+                        type="hidden"
+                        id="address-id"
+                    >
+
+
+                    <div class="form-group">
+                        <label for="label">
+                            Label
+                        </label>
+
+                        <input
+                            id="label"
+                            type="text"
+                            placeholder="Home"
+                            minlength="2"
+                            maxlength="50"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="recipient-name">
+                            Recipient Name
+                        </label>
+
+                        <input
+                            id="recipient-name"
+                            type="text"
+                            minlength="2"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="phone">
+                            Phone
+                        </label>
+
+                        <input
+                            id="phone"
+                            type="text"
+                            placeholder="03001234567"
+                            minlength="7"
+                            maxlength="30"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="address-line1">
+                            Address Line 1
+                        </label>
+
+                        <input
+                            id="address-line1"
+                            type="text"
+                            placeholder="House, street, area"
+                            minlength="3"
+                            maxlength="255"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="address-line2">
+                            Address Line 2
+                        </label>
+
+                        <input
+                            id="address-line2"
+                            type="text"
+                            maxlength="255"
+                            placeholder="Apartment / landmark (optional)"
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="city">
+                            City
+                        </label>
+
+                        <input
+                            id="city"
+                            type="text"
+                            minlength="2"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="state">
+                            State / Province
+                        </label>
+
+                        <input
+                            id="state"
+                            type="text"
+                            value="Sindh"
+                            minlength="2"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="postal-code">
+                            Postal Code
+                        </label>
+
+                        <input
+                            id="postal-code"
+                            type="text"
+                            maxlength="20"
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="country">
+                            Country
+                        </label>
+
+                        <input
+                            id="country"
+                            type="text"
+                            value="Pakistan"
+                            minlength="2"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group checkbox-row">
+
+                        <input
+                            id="is-default"
+                            type="checkbox"
+                        >
+
+                        <label
+                            for="is-default"
+                            style="margin: 0;"
+                        >
+                            Set as default address
+                        </label>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="save-button"
+                        class="primary-button"
+                    >
+                        Save Address
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="cancel-edit-button"
+                        class="secondary-button"
+                        style="
+                            display: none;
+                            width: 100%;
+                            margin-top: 10px;
+                        "
+                    >
+                        Cancel Edit
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- EXISTING ADDRESSES -->
+
+            <section class="card">
+
+                <h2>
+                    Saved Addresses
+                </h2>
+
+                <p
+                    id="loading-message"
+                >
+                    Loading addresses...
+                </p>
+
+                <div
+                    id="addresses-container"
+                ></div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script src="js/api.js?v=10"></script>
+    <script src="js/addresses.js?v=1"></script>
+
+</body>
+
+</html>

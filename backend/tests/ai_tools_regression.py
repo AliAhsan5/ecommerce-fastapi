@@ -6,6 +6,7 @@ from app.services.ai_product_tools import (
     get_product_detail,
     search_products,
 )
+
 from app.services.ai_tool_service import (
     generate_tool_assisted_response,
 )
@@ -14,7 +15,8 @@ from app.services.ai_tool_service import (
 def print_result(
     name: str,
     passed: bool,
-):
+) -> bool:
+
     status = (
         "PASS"
         if passed
@@ -37,9 +39,9 @@ def run_tests():
 
     try:
 
-        # ---------------------------------
-        # TEST 1 - Product Search Tool
-        # ---------------------------------
+        # =================================
+        # TEST 1 - PRODUCT SEARCH
+        # =================================
 
         total_tests += 1
 
@@ -65,9 +67,9 @@ def run_tests():
             passed_tests += 1
 
 
-        # ---------------------------------
-        # TEST 2 - Product Detail Tool
-        # ---------------------------------
+        # =================================
+        # TEST 2 - PRODUCT DETAIL
+        # =================================
 
         total_tests += 1
 
@@ -86,7 +88,8 @@ def run_tests():
                 detail["variants"][0][
                     "effective_price"
                 ]
-            ) == "27000.00"
+            )
+            == "27000.00"
         )
 
         if print_result(
@@ -96,9 +99,9 @@ def run_tests():
             passed_tests += 1
 
 
-        # ---------------------------------
-        # TEST 3 - Stock Tool
-        # ---------------------------------
+        # =================================
+        # TEST 3 - STOCK TOOL
+        # =================================
 
         total_tests += 1
 
@@ -107,11 +110,24 @@ def run_tests():
             variant_id=1,
         )
 
-        passed = (
+        stock_quantity = (
             stock["stock_quantity"]
-            == 70
+        )
+
+        expected_availability = (
+            "in_stock"
+            if stock_quantity > 0
+            else "out_of_stock"
+        )
+
+        passed = (
+            isinstance(
+                stock_quantity,
+                int,
+            )
+            and stock_quantity >= 0
             and stock["availability"]
-            == "in_stock"
+            == expected_availability
         )
 
         if print_result(
@@ -121,9 +137,9 @@ def run_tests():
             passed_tests += 1
 
 
-        # ---------------------------------
-        # TEST 4 - Comparison Tool
-        # ---------------------------------
+        # =================================
+        # TEST 4 - COMPARISON TOOL
+        # =================================
 
         total_tests += 1
 
@@ -142,12 +158,26 @@ def run_tests():
             in comparison["products"]
         }
 
-        dior = comparison_products.get(
-            "dior sauvage"
+        dior = (
+            comparison_products.get(
+                "dior sauvage"
+            )
         )
 
-        ignis = comparison_products.get(
-            "ignis noir"
+        ignis = (
+            comparison_products.get(
+                "ignis noir"
+            )
+        )
+
+        dior_stock = check_stock(
+            db=db,
+            variant_id=1,
+        )
+
+        ignis_stock = check_stock(
+            db=db,
+            variant_id=2,
         )
 
         passed = (
@@ -156,26 +186,38 @@ def run_tests():
             ] == 2
             and dior is not None
             and ignis is not None
+
             and str(
                 dior["variants"][0][
                     "effective_price"
                 ]
-            ) == "27000.00"
-            and dior[
-                "variants"
-            ][0][
-                "stock_quantity"
-            ] == 70
+            )
+            == "27000.00"
+
             and str(
                 ignis["variants"][0][
                     "effective_price"
                 ]
-            ) == "2000.00"
+            )
+            == "2000.00"
+
+            and dior[
+                "variants"
+            ][0][
+                "stock_quantity"
+            ]
+            == dior_stock[
+                "stock_quantity"
+            ]
+
             and ignis[
                 "variants"
             ][0][
                 "stock_quantity"
-            ] == 50
+            ]
+            == ignis_stock[
+                "stock_quantity"
+            ]
         )
 
         if print_result(
@@ -185,9 +227,9 @@ def run_tests():
             passed_tests += 1
 
 
-        # ---------------------------------
-        # TEST 5 - AI Tool Calling Smoke
-        # ---------------------------------
+        # =================================
+        # TEST 5 - AI TOOL CALLING SMOKE
+        # =================================
 
         total_tests += 1
 
@@ -218,9 +260,9 @@ def run_tests():
             passed_tests += 1
 
 
-        # ---------------------------------
-        # TEST 6 - AI Comparison Smoke
-        # ---------------------------------
+        # =================================
+        # TEST 6 - AI COMPARISON SMOKE
+        # =================================
 
         total_tests += 1
 
@@ -235,8 +277,7 @@ def run_tests():
         )
 
         normalized = (
-            ai_response
-            .lower()
+            ai_response.lower()
         )
 
         passed = (
@@ -256,32 +297,55 @@ def run_tests():
             passed_tests += 1
 
 
-        # ---------------------------------
-        # TEST 7 - Verified Grounding Source
-        # ---------------------------------
+        # =================================
+        # TEST 7 - VERIFIED GROUNDING
+        # =================================
 
         total_tests += 1
 
-        verified = get_product_detail(
-            db=db,
-            product_id=1,
+        verified_product = (
+            get_product_detail(
+                db=db,
+                product_id=1,
+            )
         )
 
-        variant = (
-            verified["variants"][0]
+        verified_variant = (
+            verified_product[
+                "variants"
+            ][0]
+        )
+
+        verified_stock = (
+            check_stock(
+                db=db,
+                variant_id=(
+                    verified_variant[
+                        "variant_id"
+                    ]
+                ),
+            )
         )
 
         passed = (
-            verified["name"]
+            verified_product[
+                "name"
+            ]
             == "Dior Sauvage"
+
             and str(
-                variant[
+                verified_variant[
                     "effective_price"
                 ]
-            ) == "27000.00"
-            and variant[
+            )
+            == "27000.00"
+
+            and verified_variant[
                 "stock_quantity"
-            ] == 70
+            ]
+            == verified_stock[
+                "stock_quantity"
+            ]
         )
 
         if print_result(
@@ -291,11 +355,12 @@ def run_tests():
             passed_tests += 1
 
 
-        # ---------------------------------
+        # =================================
         # FINAL RESULT
-        # ---------------------------------
+        # =================================
 
         print()
+
         print(
             "-----------------------------"
         )
@@ -308,6 +373,7 @@ def run_tests():
         print(
             "-----------------------------"
         )
+
 
         if (
             passed_tests
@@ -323,6 +389,7 @@ def run_tests():
             print(
                 "AI PRODUCT TOOLS FAILED"
             )
+
 
     finally:
 

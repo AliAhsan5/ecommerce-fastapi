@@ -370,6 +370,51 @@ async function getAddresses() {
     );
 }
 
+async function createAddress(
+    addressData
+) {
+    return apiRequest(
+        "/addresses",
+        {
+            method: "POST",
+            body: JSON.stringify(
+                addressData
+            ),
+        },
+        true
+    );
+}
+
+
+async function updateAddress(
+    addressId,
+    addressData
+) {
+    return apiRequest(
+        `/addresses/${addressId}`,
+        {
+            method: "PATCH",
+            body: JSON.stringify(
+                addressData
+            ),
+        },
+        true
+    );
+}
+
+
+async function deleteAddress(
+    addressId
+) {
+    return apiRequest(
+        `/addresses/${addressId}`,
+        {
+            method: "DELETE",
+        },
+        true
+    );
+}
+
 
 /* =========================
    CHECKOUT / ORDERS
@@ -782,5 +827,23 @@ async function sendChatMessage(
                 history: history,
             }),
         }
+    );
+}
+
+async function sendOrderChatMessage(
+    message,
+    history = []
+) {
+    return apiRequest(
+        "/chat/order",
+        {
+            method: "POST",
+
+            body: JSON.stringify({
+                message: message,
+                history: history,
+            }),
+        },
+        true
     );
 }
